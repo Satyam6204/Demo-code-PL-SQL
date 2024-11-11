@@ -1,0 +1,193 @@
+ <!--   --PACKAGE:
+   
+   --PACKAGE IS ONE ORACLE DB OBJECT
+   --PACKAGE IS A COLLECTION OF PROCEDURE 
+  
+   
+   
+   --FUNCTION ,DATA TYPE , EXEEPTION ,CURSOR AND VARIABLE
+   --#SYNTAX:
+   -- CREATE OR REPLACE PACKAGE <NAME>
+   -- IS / AS
+        
+    	--DECLARE THE PROCEDURE
+    	--DECLARE  THE FUNCTION
+    	-- DECLARE THE VARIABLE
+    --	END;
+    	--/
+   	
+  
+  --PACKAGE BODY:
+   	  -- SYNTAX:
+   	   --CREATE OR REPLACE PACKAGE BODY <NAME>
+   	   --IS / AS
+   	   
+   	   --END;
+   	   --/
+    
+    
+  
+
+  
+  CREATE OR REPLACE PACKAGE MATH
+  AS
+        PROCEDURE ADDITION(X INT, Y INT);
+	FUNCTION PRODUCT(X INT , Y INT) RETURN INT;
+	END;
+	/
+	
+	
+CREATE OR REPLACE PACKAGE BODY MATH
+AS
+
+  PROCEDURE ADDITION (X INT, Y INT)
+  AS
+  BEGIN
+     DBMS_OUTPUT.PUT_LINE('SUM = '||(X+Y));
+    
+    END ADDITION;
+    
+    FUNCTION PRODUCT (X INT , Y INT ) RETURN INT
+    AS
+	BEGIN
+      RETURN X*Y;
+      
+      END PRODUCT;
+      
+  END;
+  /
+ --ADVATAGE
+ --REUSEABILITY
+ --PACKAGE IMPROVE PERFORMENCE
+ --LENTH OF CODE 
+ --SECURITY
+ --MAINTAINCE
+ --PACKAGE PROCEDURE AND PACKAGE FUNCTION CAN BE OVERLOAD
+ --WE CAN DECLARE GLOBAL VARIABLE 
+ --WE CAN MAKE MEMBER AS PUBLIC OR PRIVATE 
+ 
+ 
+ -- PACKAGE SPACIFICATION
+ CREATE OR REPLACE PACKAGE T1
+ AS 
+     PROCEDURE AD(X NUMBER,Y NUMBER);
+	 PROCEDURE SU(X NUMBER,Y NUMBER);
+	 PROCEDURE MU(X NUMBER,Y NUMBER);
+	 PROCEDURE DI(X NUMBER,Y NUMBER);
+	 
+	 FUNCTION AD(X NUMBER, Y NUMBER) RETURN INT ;
+	 FUNCTION SU(X NUMBER, Y NUMBER) RETURN INT ;
+	 FUNCTION MU(X NUMBER, Y NUMBER) RETURN INT ;
+	 FUNCTION DI(X NUMBER, Y NUMBER) RETURN INT ;
+	 
+	 END;
+	 /
+	 
+	 
+	 -- PACKAGE BODY
+	 
+	 CREATE OR REPLACE PACKAGE BODY T1
+	 AS
+	     PROCEDURE AD (X NUMBER, Y NUMBER)
+		 AS 
+		  
+		 BEGIN
+		       DBMS_OUTPUT.PUT_LINE('=' || (X+Y));
+		 END AD;
+		 PROCEDURE SU(X NUMBER, Y NUMBER)
+		 AS 
+		  
+		 BEGIN
+		 
+		 DBMS_OUTPUT.PUT_LINE('=' || (X-Y));
+		 END SU;
+		 
+		 PROCEDURE MU(X NUMBER, Y NUMBER)
+		 AS 
+		  
+		 BEGIN 
+		 DBMS_OUTPUT.PUT_LINE('=' || (X*Y));
+		 END MU;
+		 
+		 PROCEDURE DI(X NUMBER , Y NUMBER)
+		 AS 
+		  
+		 BEGIN
+		 DBMS_OUTPUT.PUT_LINE('=' || (X/Y));
+		 END DI;
+		 
+		 FUNCTION AD(X NUMBER,  Y NUMBER) RETURN INT
+		 AS 
+		  
+		 BEGIN
+		    RETURN X+Y;
+		 END AD;
+		 
+		 FUNCTION SU(X NUMBER , Y NUMBER) RETURN INT
+		 AS 
+		  
+		 BEGIN
+		    RETURN X-Y;
+		 END SU;
+		  
+		  FUNCTION MU(X NUMBER , Y NUMBER) RETURN INT
+		  AS 
+		    
+			BEGIN 
+			  RETURN X*Y;
+			END MU ;
+			
+			FUNCTION DI(X NUMBER , Y NUMBER) RETURN INT 
+			AS 
+			 
+			BEGIN 
+			   RETURN X/Y;
+			END DI;
+			
+	 END;
+	 /
+	 
+	 
+	 -- EXECUTE IN SQL>>
+	 
+		 DECLARE 
+			X NUMBER;
+			Y NUMBER;
+			
+			C NUMBER;
+			D NUMBER;
+			E NUMBER;
+			F NUMBER;
+			
+			
+			
+		 
+		 BEGIN 
+			 X:= &X;
+			 Y:= &Y;
+			 DBMS_OUTPUT.PUT_LINE('PACAKGE PROCEDURE');
+			 DBMS_OUTPUT.PUT_LINE('add =' || '  ' || T1.AD(X,Y));
+			  DBMS_OUTPUT.PUT_LINE('SUB =' || '  ' || T1.SU(X,Y));
+			   DBMS_OUTPUT.PUT_LINE('MUL =' || '  ' || T1.MU(X,Y));
+				DBMS_OUTPUT.PUT_LINE('DIV =' || '  ' || T1.DI(X,Y));
+				
+				 DBMS_OUTPUT.PUT_LINE('PACAKGE FUNCTION');
+		         
+				 C := T1.AD(X,Y);
+				 D := T1.SU(X,Y);
+				 E := T1.MU(X,Y);
+				 F := T1.DI(X,Y);
+				 
+				  DBMS_OUTPUT.PUT_LINE('add =' || '  ' || C);
+				  DBMS_OUTPUT.PUT_LINE('SUB =' || '  ' || D);
+				  DBMS_OUTPUT.PUT_LINE('MUL =' || '  ' || E);
+				  DBMS_OUTPUT.PUT_LINE('DIV =' || '  ' || F);
+				 
+			 
+			 
+			 
+			 
+		 
+		 
+		 END;
+		 /

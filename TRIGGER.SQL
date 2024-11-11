@@ -1,0 +1,49 @@
+--trigger  DML
+
+--Define a tirgger to dont allow user to perform DMLs on SUNDAY
+
+CREATE OR REPLACE TRIGGER t1
+BEFORE INSERT OR UPDATE OR DELETE 
+ON EMP
+BEGIN
+IF TO_CHAR(SYSDATE,'DY')='SUN' THEN
+      RAISE_APPLICATION_ERROR(-20050,'YOU CANNOT PERFORM DMLs ON SUNDAY');
+	  END IF;
+END;
+/
+--On Sunday:
+--UPDATE emp SET sal=sal+1000;
+--Output:
+--ERROR: dmls not allowed on sunday
+
+
+--Define a trigger to allow DMLs before or after office timings [10am to 4pm]
+--before 10am => raise error 
+--after 4pm => raise error
+
+CREATE OR REPLACE TRIGGER T2
+BEFORE INSERT OR UPDATE OR DELETE 
+ON EMP
+DECLARE
+H INT;
+BEGIN
+    H:=TO_CHAR(SYSDATE,'HH24');
+	IF H NOT BETWEEN 10 AND 15 THEN
+	RAISE_APPLICATION_ERROR(-20050,'DMLs ALLOWED B/W 10AM TO 4PM ONLY');
+	END IF; 
+END;
+/
+
+
+--DEFINE A TRIGGER TO STORE DELETE RECORD I EMP_RESIGN TABLE :
+
+
+CREATE OR REPLACE TRIGGER T3
+AFTER DELETE 
+ON EMP
+FOR EACH ROW
+BEGIN
+INSERT INTO EMP_RESIGN
+VALUES(SYSDATE, :old.EMPNO, :old.ENAME, :old.SAL);
+END;
+/

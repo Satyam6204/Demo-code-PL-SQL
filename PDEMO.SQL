@@ -1,0 +1,11 @@
+CREATE OR REPLACE PROCEDURE 
+addition(x INT,y INT, z INT) 
+AS
+BEGIN
+     DBMS_OUTPUT.PUT_LINE('SUM = '|| (x+y+z));
+	 DBMS_OUTPUT.PUT_LINE('X = '||x);
+	 DBMS_OUTPUT.PUT_LINE('Y = '|| y);
+	 DBMS_OUTPUT.PUT_LINE('Z ='|| z);
+	 
+END;
+/
